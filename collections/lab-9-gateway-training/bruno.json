@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "lab-9-gateway-training",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

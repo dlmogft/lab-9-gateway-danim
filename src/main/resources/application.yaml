@@ -1,0 +1,47 @@
+---
+spring:
+  application:
+    name: lab-9-gateway
+  config:
+    import: "optional:configserver:http://localhost:8001"
+  cloud:
+    gateway:
+      routes:
+        - id: subject-service
+          uri: lb://subject
+          predicates:
+            - Path=/services/subject/**
+          filters:
+            - StripPrefix=2
+        - id: verb-service
+          uri: lb://verb
+          predicates:
+            - Path=/services/verb/**
+          filters:
+            - StripPrefix=2
+        - id: article-service
+          uri: lb://article
+          predicates:
+            - Path=/services/article/**
+          filters:
+            - StripPrefix=2
+        - id: adjective-service
+          uri: lb://adjective
+          predicates:
+            - Path=/services/adjective/**
+          filters:
+            - StripPrefix=2
+        - id: noun-service
+          uri: lb://noun
+          predicates:
+            - Path=/services/noun/**
+          filters:
+            - StripPrefix=2
+        # Fallback route:
+        # Any request to / should route
+        # through the load balancer to
+        # the lab-9-sentence-server service's "/" resource:
+        - id: web-interface
+          uri: lb://lab-6-sentence-server-danim
+          predicates:
+            - Path=/**
