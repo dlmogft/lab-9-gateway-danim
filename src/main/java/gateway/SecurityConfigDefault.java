@@ -6,6 +6,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+/**
+ * This is the configuration used when the application is started with default profile:
+ * mvn spring-boot:run
+ * then the login screen is NOT displayed in localhost:8080
+ */
 @Configuration
 @Profile({"default"})
 public class SecurityConfigDefault {
