@@ -4,6 +4,10 @@ spring:
     name: lab-9-gateway
   config:
     import: "optional:configserver:http://localhost:8001"
+  security:
+    user:
+      name: admin
+      password: ${GTW_ADMIN_PWD}
   cloud:
     gateway:
       routes:
@@ -45,3 +49,30 @@ spring:
           uri: lb://lab-6-sentence-server-danim
           predicates:
             - Path=/**
+
+app:
+  security:
+    users:
+      - name: admin
+        password: ${GTW_ADMIN_PWD}
+        roles: ADMIN
+      - name: ${GTW_USER_NAME}
+        password: ${GTW_USER_PWD}
+        roles: USER
+      - name: ${GTW_GUEST_NAME}
+        password: ${GTW_GUEST_PWD}
+        roles: GUEST
+
+# This configuration can be set to use a certificate mykeystore.p12 that can be generated with the following command.
+# To make it work, the KEY_STORE_PWD environment variable must be set
+#
+# If set, the gateway has to be started in http://localhost:8443/
+#
+#  keytool -genkeypair -alias testkey -keyalg RSA -keysize 2048
+#  -dname "CN=SentenceGateway,OU=MicroservicesWithSpringCloud,O=Organization,L=Orlando,S=FL,C=US"
+#  -keystore mykeystore.p12 -storepass ${KEY_STORE_PWD} -storetype PKCS12 -validity 3650
+# server:
+#   port: 8443
+#   ssl:
+#     key-store: "classpath:mykeystore.p12"
+#     key-store-password: ${KEY_STORE_PWD}
