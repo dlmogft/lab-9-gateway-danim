@@ -62,6 +62,12 @@ app:
       - name: ${GTW_GUEST_NAME}
         password: ${GTW_GUEST_PWD}
         roles: GUEST
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: ${spring.security.oauth2.client.registration.github.clientId}
+            clientSecret: ${spring.security.oauth2.client.registration.github.clientSecret}
 
 # This configuration can be set to use a certificate mykeystore.p12 that can be generated with the following command.
 # To make it work, the KEY_STORE_PWD environment variable must be set
